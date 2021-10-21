@@ -5,6 +5,8 @@ import Register from "./pages/register/Register";
 import Settings from "./pages/settings/Settings";
 import Single from "./pages/single/Single";
 import Write from "./pages/write/Write";
+import { useContext } from 'react'
+import { Context } from './context/Context'
 import {
   BrowserRouter as Router,
   Switch,
@@ -15,7 +17,7 @@ import {
 
 function App() {
 
-  const user = false 
+  const {user} = useContext(Context)
 
   return (
     <Router>
