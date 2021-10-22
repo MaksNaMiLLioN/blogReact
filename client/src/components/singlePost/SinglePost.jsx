@@ -19,6 +19,8 @@ const SinglePost = () => {
         const getPost = async () =>{
             const res = await axios.get("/posts/"+path, {username: user.username})
             setPost(res.data)
+            setTitle(res.data.title)
+            setDesc(res.data.desc)
         }
         getPost()
     }, [path])
@@ -28,7 +30,19 @@ const SinglePost = () => {
             await axios.delete(`/posts/${post._id}`, {
                 data: { username: user.username },
             })
-            window.location.replace("/")
+            //window.location.replace("/")
+            setUpdateMode(false)
+        } catch(err) {
+
+        }
+    }
+
+    const handleUpdate = async () => {
+        try {
+            await axios.put(`/posts/${post._id}`, {
+                 username: user.username, title, desc 
+            })
+            window.location.reload()
         } catch(err) {
 
         }
@@ -46,7 +60,7 @@ const SinglePost = () => {
                     />            
                 }
                 {
-                    updateMode ? <input type="text" value={post.title} className="singlePostTitleInput"></input>:(
+                    updateMode ? <input type="text" value={title} className="singlePostTitleInput" autoFocus onChange={(e)=>setTitle(e.target.value)}></input>:(
                     <h1 className="singlePostTitle"> 
                         {post.title}
                         {post.username === user?.username && (
@@ -69,12 +83,13 @@ const SinglePost = () => {
                     <span className="singlePostDate">{new Date(post.createdAt).toDateString()}</span>
                 </div>
             </div>
-            {updateMode ? <textarea className="singlePostDesc"/> : (
+            {updateMode ? <textarea className="singlePostDescInput" value = {desc} onChange={(e)=>setDesc(e.target.value)}/> : (
             <p className="singlePostDesc">
                 { post.desc }
             </p>
             )}
 
+            { updateMode && <button className="singlePostButton" onClick={handleUpdate}>Update</button> }
         </div>
     )
 }
