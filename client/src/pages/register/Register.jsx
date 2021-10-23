@@ -39,7 +39,6 @@ const Register = () => {
                     type="text" className="registerInput" placeholder="Enter your username"
                     onChange = {(e) => setUsername(e.target.value)}
                 />
-                <label>Password</label>
                 <label>Email</label>
                 <input 
                     type="text" className="registerInput" placeholder="Enter your email"

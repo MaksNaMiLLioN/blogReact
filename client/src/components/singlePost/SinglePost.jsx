@@ -85,7 +85,7 @@ const SinglePost = () => {
             </div>
             {updateMode ? <textarea className="singlePostDescInput" value = {desc} onChange={(e)=>setDesc(e.target.value)}/> : (
             <p className="singlePostDesc">
-                { post.desc }
+                { desc }
             </p>
             )}
 
